@@ -1,1 +1,1 @@
-from .seg import miou, pixel_accuracy
+from .dice_metric import DiceMetric

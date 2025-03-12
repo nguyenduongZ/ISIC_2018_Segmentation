@@ -6,15 +6,11 @@ def folder_setup(args):
     run_dir = os.getcwd() + "/runs"
     if not os.path.exists(run_dir):
         os.mkdir(run_dir)
-    
-    task_dir = run_dir + f"/{args.ds}_{args.task}"
-    if not os.path.exists(task_dir):
-        os.mkdir(task_dir)
-    
-    loss_dir = task_dir + f"/{args.loss}_{args.model}"
+
+    loss_dir = run_dir + f"/{args.loss}_{args.model}"
     if not os.path.exists(loss_dir):
         os.mkdir(loss_dir)
-    
+
     exp_cnt = len(os.listdir(loss_dir))
     if exp_cnt == 0:
         exp_dir = loss_dir + f"/exp_{exp_cnt}"
