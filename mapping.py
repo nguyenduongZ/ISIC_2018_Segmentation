@@ -1,29 +1,31 @@
-from torch import nn
-from models import Unet
-from metrics import miou, pixel_accuracy
+from models import UNet, UnetPlusPlus, DeepLabV3Plus
+from metrics import DiceMetric
+from loss import DiceLoss
+from ignite.metrics import Accuracy, Loss, ConfusionMatrix, DiceCoefficient, MeanSquaredError
 
-# Model
-enc_dec_mapping = {
-    'unet' : Unet
+# Models
+model_mapping = {
+    "unet": UNet,
+    "resunetpp": UnetPlusPlus,
+    "deeplab": DeepLabV3Plus
 }
 
-# LOSSES
-seg_loss = {
-    "cross_entropy" : nn.CrossEntropyLoss()
+# Metrics
+# metrics_mapping = {
+#     "dsc": DiceMetric,
+#     "loss": Loss(DiceLoss())
+# }
+
+# Loss
+loss_mapping = {
+    "loss": DiceLoss
 }
 
-# METRICS
-seg_metrics_mapping = {
-    'iou' : miou
-}
-
-# MONITOR
+# Monitor
 mapping = {
-    'isic2018' : {
-        'seg' : {
-            'model' : enc_dec_mapping,
-            'loss' : seg_loss,
-            'metrics' : seg_metrics_mapping
-        },
-    },
+    "lesion": {
+        "model": model_mapping,
+        # "metrics": metrics_mapping,
+        "loss": loss_mapping
+    }
 }
